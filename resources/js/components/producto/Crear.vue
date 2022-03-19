@@ -1,0 +1,81 @@
+<template>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header"><h4>Crear Producto</h4></div>
+                <div class="card-body">
+                    <form @submit.prevent="crear">
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                <div class="form-group">
+                                    <label>Cliente</label>
+                                    <select class="form-select"  v-model="producto.nombre">
+                                        <option value="JOSE MARTINEZ">JOSE MARTINEZ</option>
+                                        <option value="CARLOS CRUZ">CARLOS CRUZ</option>
+                                        <option value="DANIELA MENDEZ">DANIELA MENDEZ</option>
+                                        </select>
+                                </div>
+                            <div class="col-12 mb-2">
+                                <div class="form-group">
+                                    <label>Producto</label>
+                                    <select class="form-select"  v-model="producto.producto">
+                                        <option value="COCA COLA">COCA COLA</option>
+                                        <option value="MALTA">MALTA</option>
+                                        <option value="DORITOS">DORITOS</option>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="form-group">
+                                    <label>Cantidad</label>
+                                    <input type="text" class="form-control" v-model="producto.cantidad">
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="form-group">
+                                    <label>Estado</label>
+                                    <select class="form-select"  v-model="producto.estado">
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CONFIRMADA">CONFIRMADA</option>
+                                        <option value="ENTREGADA">ENTREGADA</option>
+                                        </select>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>      
+                        </div>                   
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name:"crearProducto",
+    data(){
+        return {
+            producto:{
+                nombre:"",
+                precio:"",
+                estado:"",
+                descripcion:""
+            }
+        }
+    },
+    methods:{
+        async crear(){
+            await this.axios.post('/api/producto',this.producto).then(response=>{
+                this.$router.push({name:"mostrarProductos"})
+            })
+            .catch(error=>{
+                console.log(error)
+            })
+        }
+    }
+}
+</script>
